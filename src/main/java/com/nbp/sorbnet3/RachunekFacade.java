@@ -17,19 +17,29 @@ public class RachunekFacade {
     }
 
     public NumerRachunku otworzNowyRachunek() {
+        //otworz saldo
+        //populuj widok
         return null;
     }
 
     public NumerRachunku otworzNowyRachunek(Kwota pln) {
+        //otworz saldo
+        //populuj widok
         return null;
     }
 
     public Rezultat przenies(NumerRachunku zasilany, NumerRachunku obciazany, Kwota pln) {
+        //sprawdz blokade
+        //sprawdz limit
+        //sprawdz saldo
+        //zmien saldo
+        //zmien limit
+        //populuj widok
         return null;
     }
 
     public void zamknij(NumerRachunku rachunek) {
-
+        //zamknij saldo
     }
 
     public void ustawLimit(NumerRachunku z, NumerRachunku na, Kwota pln) {
