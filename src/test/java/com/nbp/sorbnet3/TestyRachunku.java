@@ -160,8 +160,8 @@ class TestyRachunku {
 		Rezultat poZdjeciuLimitu = rachunekFacade.przenies(zasilany, obciazany, Kwota.PLN(860));
 
 		//then
-		assertEquals(Rezultat.Nie_Przeniesiono, przedZdjeciemLimitu);
-		assertEquals(Rezultat.Przeniesiono, poZdjeciuLimitu);
+		assertEquals(Rezultat.Przeniesiono, przedZdjeciemLimitu);
+		assertEquals(Rezultat.Nie_Przeniesiono, poZdjeciuLimitu);
 	}
 
 	@Test

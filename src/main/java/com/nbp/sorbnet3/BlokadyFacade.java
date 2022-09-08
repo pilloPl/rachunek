@@ -26,7 +26,7 @@ class BlokadyFacade {
 
     public boolean sprawdzBlokade(NumerRachunku numer, Kwota kwota) {
         Kwota kwotaBlokady = blokadyRepository.pobierzBlokade(numer);
-        return kwota.jestMniejszeNiz(kwotaBlokady);
+        return kwotaBlokady == null || kwota.jestMniejszeNiz(kwotaBlokady);
     }
 
 }
