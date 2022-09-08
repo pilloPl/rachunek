@@ -16,10 +16,19 @@ class LimityController {
     LimityController(LimityFacade limityFacade) {
         this.limityFacade = limityFacade;
         NumerRachunku z = NumerRachunku.generuj();
+        NumerRachunku z2 = NumerRachunku.generuj();
         System.out.println(z);
         NumerRachunku na = NumerRachunku.generuj();
+        NumerRachunku na2 = NumerRachunku.generuj();
+
         Kwota pln = Kwota.PLN(100);
+        Kwota pln2 = Kwota.PLN(200);
+        Kwota pln3 = Kwota.PLN(300);
+        Kwota pln4 = Kwota.PLN(400);
         this.limityFacade.ustawLimit(z, na, pln);
+        this.limityFacade.ustawLimit(z, na2, pln2);
+        this.limityFacade.ustawLimit(z2, na, pln3);
+        this.limityFacade.ustawLimit(z2, na2, pln4);
     }
 
     @GetMapping(path = "/limity/{nr}")
@@ -28,9 +37,24 @@ class LimityController {
         return ResponseEntity.ok(convert(nr, limitMap));
     }
 
+    @GetMapping(path = "/limity")
+    ResponseEntity<List<LimityDto>> pokazWszystkieLimity() {
+        Map<NumerRachunku, Map<NumerRachunku, Limit>> mapa = limityFacade.pobierzWszystkieLimity();
+        return ResponseEntity.ok(convert(mapa));
+    }
+
     @PostMapping(path = "/limity/")
     ResponseEntity<LimityDto> ustawLimit(@RequestBody UstawLimitDto ustawLimitDto) {
         return null;
+    }
+
+    private List<LimityDto> convert(Map<NumerRachunku, Map<NumerRachunku, Limit>> mapa) {
+        List<LimityDto> lista = new ArrayList<>();
+        for(NumerRachunku nr : mapa.keySet()) {
+            List<LimityDto> limity = convert(nr.getId(), mapa.get(nr));
+            lista.addAll(limity);
+        }
+        return lista;
     }
 
     private List<LimityDto> convert(UUID zrodlowy, Map<NumerRachunku, Limit> limityMap) {

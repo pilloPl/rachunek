@@ -49,6 +49,10 @@ class LimityFacade {
     public Map<NumerRachunku, Limit> pobierzLimityDlaRachunku(UUID nrRachunku) {
         return limityRepository.pobierzLimity(nrRachunku);
     }
+
+    public Map<NumerRachunku, Map<NumerRachunku, Limit>> pobierzWszystkieLimity() {
+        return limityRepository.pobierzWszystkie();
+    }
 }
 
 @Repository
@@ -74,6 +78,10 @@ class LimityRepository {
 
     public Map<NumerRachunku, Limit> pobierzLimity(UUID nrRachunku) {
         return limity.get(new NumerRachunku(nrRachunku));
+    }
+
+    public Map<NumerRachunku, Map<NumerRachunku, Limit>> pobierzWszystkie() {
+        return limity;
     }
 }
 
