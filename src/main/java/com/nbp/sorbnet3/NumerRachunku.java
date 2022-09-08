@@ -40,4 +40,16 @@ public class NumerRachunku {
     public boolean jestZamkniety() {
         return Status.Zamkniety.equals(status);
     }
+
+    @Override
+    public String toString() {
+        return "NumerRachunku{" +
+                "nrb=" + nrb +
+                ", status=" + status +
+                '}';
+    }
+
+    public UUID getId() {
+        return nrb;
+    }
 }

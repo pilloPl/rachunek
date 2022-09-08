@@ -19,10 +19,11 @@ public class RachunekFacade {
     public NumerRachunku otworzNowyRachunek() {
         //otworz saldo
         //populuj widok
-        return null;
+        return otworzNowyRachunek(Kwota.PLN(0));
     }
 
     public NumerRachunku otworzNowyRachunek(Kwota saldo) {
+
         NumerRachunku numerRachunku = NumerRachunku.generuj();
         numerRachunku.otworz();
         saldaFacade.otworzSaldoNaKwote(saldo, numerRachunku);
@@ -32,37 +33,40 @@ public class RachunekFacade {
     }
 
     public Rezultat przenies(NumerRachunku zasilany, NumerRachunku obciazany, Kwota kwota) {
-        //sprawdz blokade BFG
-        if (!blokadyFacade.sprawdzBlokade(obciazany, kwota)) {
+        Kwota blokady = blokadyFacade.dajBlokade(obciazany);
+        if (!saldaFacade.czyMaszKwote(obciazany, blokady.dodaj(kwota))) {
             return Rezultat.Nie_Przeniesiono;
         }
-
-        //sprawdz limit
-
-        //zmien limit
-        //populuj widok
-
+        boolean limitOK = limityFacade.sprawdzLimit(obciazany, zasilany, kwota);
+        if (!limitOK) {
+            return Rezultat.Nie_Przeniesiono;
+        } else {
+            limityFacade.zmniejszLimit(obciazany, zasilany, kwota);
+        }
         Rezultat rezultat = saldaFacade.przenies(zasilany, obciazany, kwota);
         return rezultat;
     }
 
     public void zamknij(NumerRachunku rachunek) {
-        rachunek.zamknij();//zamknij saldo
+        rachunek.zamknij();
     }
 
     public void ustawLimit(NumerRachunku z, NumerRachunku na, Kwota pln) {
+        limityFacade.ustawLimit(z, na, pln);
 
     }
 
     public void zdejmijLimit(NumerRachunku z, NumerRachunku na) {
-
+        limityFacade.zdejmijLimit(z, na);
     }
 
     public void zwiekszLimit(NumerRachunku z, NumerRachunku na, Kwota pln) {
+        limityFacade.zwiekszLimit(z, na, pln);
+
     }
 
     public void zmniejszLimit(NumerRachunku z, NumerRachunku na, Kwota pln) {
-
+        limityFacade.zmniejszLimit(z, na, pln);
     }
 
     public void zdejmijBlokade(NumerRachunku z, Kwota pln) {

@@ -16,17 +16,20 @@ class BlokadyFacade {
         this.blokadyRepository = blokadyRepository;
     }
 
-    public void zalozBlokade(NumerRachunku numer, Kwota kwota) {
+     void zalozBlokade(NumerRachunku numer, Kwota kwota) {
         blokadyRepository.zalozBlokade(numer, kwota);
     }
 
-    public void zdejmijBlokade(NumerRachunku numer, Kwota kwota) {
+     void zdejmijBlokade(NumerRachunku numer, Kwota kwota) {
         blokadyRepository.zmniejszBlokade(numer, kwota);
     }
 
-    public boolean sprawdzBlokade(NumerRachunku numer, Kwota kwota) {
+     Kwota dajBlokade(NumerRachunku numer) {
         Kwota kwotaBlokady = blokadyRepository.pobierzBlokade(numer);
-        return kwotaBlokady == null || kwota.jestMniejszeNiz(kwotaBlokady);
+        if(kwotaBlokady == null) {
+            return Kwota.PLN(0);
+        }
+        return kwotaBlokady;
     }
 
 }

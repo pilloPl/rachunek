@@ -34,6 +34,10 @@ class SaldaFacade {
         }
         return Rezultat.Nie_Przeniesiono;
     }
+
+    public boolean czyMaszKwote(NumerRachunku obciazany, Kwota blokady) {
+        return saldaRepository.załaduj(obciazany).czyJestDostepnaKwota(blokady);
+    }
 }
 
 @Repository
@@ -75,4 +79,7 @@ class Saldo {
     }
 
 
+    public boolean czyJestDostepnaKwota(Kwota blokady) {
+        return !saldo.jestMniejszeNiz(blokady);
+    }
 }

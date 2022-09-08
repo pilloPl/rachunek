@@ -2,7 +2,7 @@ package com.nbp.sorbnet3;
 
 import java.util.Objects;
 
-class Kwota {
+public class Kwota {
 
     //wiadomo, ze nie int
     private final int amount;
@@ -44,4 +44,7 @@ class Kwota {
         return this.amount == 0;
     }
 
+    public int getAmount() {
+        return amount;
+    }
 }

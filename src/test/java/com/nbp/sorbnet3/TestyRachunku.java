@@ -224,7 +224,7 @@ class TestyRachunku {
 
 		//then
 		assertEquals(Rezultat.Nie_Przeniesiono, przedZdjeciemBlokady);
-		assertEquals(Rezultat.Nie_Przeniesiono, poZdjeciuBlokady);
+		assertEquals(Rezultat.Przeniesiono, poZdjeciuBlokady);
 	}
 
 }
