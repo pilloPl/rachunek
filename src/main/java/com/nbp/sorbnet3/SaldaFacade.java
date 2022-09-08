@@ -4,7 +4,6 @@ package com.nbp.sorbnet3;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.net.NetworkInterface;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +21,12 @@ class SaldaFacade {
     }
 
     public Rezultat przenies(NumerRachunku zasilany, NumerRachunku obciazany, Kwota kwota) {
+        if(zasilany.jestZamkniety() || obciazany.jestZamkniety())
+            return Rezultat.Nie_Przeniesiono;
+
         Saldo obciazane = saldaRepository.załaduj(obciazany);
         Saldo zasilane = saldaRepository.załaduj(zasilany);
+
         boolean rezult = obciazane.obciąż(kwota);
         if (rezult) {
             zasilane.uznaj(kwota);

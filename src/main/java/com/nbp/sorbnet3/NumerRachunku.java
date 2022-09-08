@@ -10,6 +10,7 @@ public class NumerRachunku {
     }
 
     private final UUID nrb;
+    private Status status;
 
     public NumerRachunku(UUID numer) {
         this.nrb = numer;
@@ -26,5 +27,17 @@ public class NumerRachunku {
     @Override
     public int hashCode() {
         return Objects.hash(nrb);
+    }
+
+    public void zamknij() {
+        this.status = Status.Zamkniety;
+    }
+
+    public void otworz() {
+        this.status = Status.Otwarty;
+    }
+
+    public boolean jestZamkniety() {
+        return Status.Zamkniety.equals(status);
     }
 }

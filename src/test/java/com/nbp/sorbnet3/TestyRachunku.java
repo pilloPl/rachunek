@@ -46,9 +46,9 @@ class TestyRachunku {
 	@Test
 	void nieMożnaPrzelaćŚrodkówJeśliRachunekJestZamknięty() {
 		//given
-		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek();
+		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(1000));
 		//and
-		NumerRachunku obciazany = rachunekFacade.otworzNowyRachunek();
+		NumerRachunku obciazany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(2000));
 		//and
 		rachunekFacade.zamknij(zasilany);
 
