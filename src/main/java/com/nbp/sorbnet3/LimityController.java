@@ -48,6 +48,13 @@ class LimityController {
         return null;
     }
 
+    @PostMapping(path = "/limity/dodanie")
+    ResponseEntity<List<LimityDto>> dodajLimit(@RequestParam("z") String z, @RequestParam("na") String na, @RequestParam("kwota") int kwota) {
+        limityFacade.ustawLimit(new NumerRachunku(UUID.fromString(z)), new NumerRachunku(UUID.fromString(na)), Kwota.PLN(kwota));
+        Map<NumerRachunku, Map<NumerRachunku, Limit>> mapa = limityFacade.pobierzWszystkieLimity();
+        return ResponseEntity.ok(convert(mapa));
+    }
+
     private List<LimityDto> convert(Map<NumerRachunku, Map<NumerRachunku, Limit>> mapa) {
         List<LimityDto> lista = new ArrayList<>();
         for(NumerRachunku nr : mapa.keySet()) {
