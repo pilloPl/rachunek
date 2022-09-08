@@ -24,6 +24,7 @@ public class RachunekFacade {
 
     public NumerRachunku otworzNowyRachunek(Kwota saldo) {
         NumerRachunku numerRachunku = NumerRachunku.generuj();
+        numerRachunku.otworz();
         saldaFacade.otworzSaldoNaKwote(saldo, numerRachunku);
         //otworz saldo
         //populuj widok
@@ -42,7 +43,7 @@ public class RachunekFacade {
     }
 
     public void zamknij(NumerRachunku rachunek) {
-        //zamknij saldo
+        rachunek.zamknij();//zamknij saldo
     }
 
     public void ustawLimit(NumerRachunku z, NumerRachunku na, Kwota pln) {
@@ -71,4 +72,8 @@ public class RachunekFacade {
 
 enum Rezultat {
     Przeniesiono, Nie_Przeniesiono
+}
+
+enum Status {
+    Otwarty, Zamkniety;
 }
