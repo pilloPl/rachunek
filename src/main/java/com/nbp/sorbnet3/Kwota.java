@@ -28,4 +28,15 @@ class Kwota {
         return Objects.hash(amount);
     }
 
+    public boolean jestMniejszeNiz(Kwota kwota) {
+        return this.amount < kwota.amount;
+    }
+
+    public Kwota odejmij(Kwota kwota) {
+        return Kwota.PLN(amount - kwota.amount);
+    }
+
+    public Kwota dodaj(Kwota kwota) {
+        return Kwota.PLN(amount + kwota.amount);
+    }
 }

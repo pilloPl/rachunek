@@ -20,11 +20,27 @@ class TestyRachunku {
 		NumerRachunku obciazany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(200));
 
 		//when
-		Rezultat rezultat = rachunekFacade.przenies(zasilany, obciazany, Kwota.PLN(100));
+		Rezultat rezultat = rachunekFacade.przenies(zasilany, obciazany, Kwota.PLN(30));
 
 		//then
 		assertEquals(Rezultat.Przeniesiono, rezultat);
 		//sprawdzenie widoku
+	}
+
+	@Test
+	void nieMożnaPrzelaćŚrodkówJeśliJestBlokadaNaRachunku() {
+		//given
+		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek();
+		//and
+		NumerRachunku obciazany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(1000));
+		//and
+		rachunekFacade.zalozBlokade(obciazany, Kwota.PLN(900));
+
+		//when
+		Rezultat rezultat = rachunekFacade.przenies(zasilany, obciazany, Kwota.PLN(950));
+
+		//then
+		assertEquals(Rezultat.Nie_Przeniesiono, rezultat);
 	}
 
 	@Test
@@ -47,7 +63,7 @@ class TestyRachunku {
 	@Test
 	void nieMożnaPrzelaćŚrodkówJeśliRachunekJeśliNieMaIchWystarczająco() {
 		//given
-		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek();
+		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(0));
 		//and
 		NumerRachunku obciazany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(1000));
 
@@ -58,21 +74,7 @@ class TestyRachunku {
 		assertEquals(Rezultat.Nie_Przeniesiono, rezultat);
 	}
 
-	@Test
-	void nieMożnaPrzelaćŚrodkówJeśliJestBlokadaNaRachunku() {
-		//given
-		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek();
-		//and
-		NumerRachunku obciazany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(1000));
-		//and
-		rachunekFacade.zalozBlokade(obciazany, Kwota.PLN(900));
 
-		//when
-		Rezultat rezultat = rachunekFacade.przenies(zasilany, obciazany, Kwota.PLN(950));
-
-		//then
-		assertEquals(Rezultat.Nie_Przeniesiono, rezultat);
-	}
 
 	@Test
 	void możnaPrzelaćŚrodkiJeśliJestBlokadaAleWystarczyŚrodków() {

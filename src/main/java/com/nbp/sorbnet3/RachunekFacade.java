@@ -22,20 +22,23 @@ public class RachunekFacade {
         return null;
     }
 
-    public NumerRachunku otworzNowyRachunek(Kwota pln) {
+    public NumerRachunku otworzNowyRachunek(Kwota saldo) {
+        NumerRachunku numerRachunku = NumerRachunku.generuj();
+        saldaFacade.otworzSaldoNaKwote(saldo, numerRachunku);
         //otworz saldo
         //populuj widok
-        return null;
+        return numerRachunku;
     }
 
-    public Rezultat przenies(NumerRachunku zasilany, NumerRachunku obciazany, Kwota pln) {
-        //sprawdz blokade
+    public Rezultat przenies(NumerRachunku zasilany, NumerRachunku obciazany, Kwota kwota) {
+        //sprawdz blokade BFG
         //sprawdz limit
-        //sprawdz saldo
-        //zmien saldo
+
         //zmien limit
         //populuj widok
-        return null;
+
+        Rezultat rezultat = saldaFacade.przenies(zasilany, obciazany, kwota);
+        return rezultat;
     }
 
     public void zamknij(NumerRachunku rachunek) {

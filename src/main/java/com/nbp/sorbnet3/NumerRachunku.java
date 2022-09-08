@@ -5,14 +5,14 @@ import java.util.UUID;
 
 public class NumerRachunku {
 
-    static NumerRachunku newOne() {
+    static NumerRachunku generuj() {
         return new NumerRachunku(UUID.randomUUID());
     }
 
-    private final UUID numer;
+    private final UUID nrb;
 
     public NumerRachunku(UUID numer) {
-        this.numer = numer;
+        this.nrb = numer;
     }
 
     @Override
@@ -20,11 +20,11 @@ public class NumerRachunku {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NumerRachunku that = (NumerRachunku) o;
-        return Objects.equals(numer, that.numer);
+        return Objects.equals(nrb, that.nrb);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numer);
+        return Objects.hash(nrb);
     }
 }
