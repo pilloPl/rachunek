@@ -32,6 +32,10 @@ public class RachunekFacade {
 
     public Rezultat przenies(NumerRachunku zasilany, NumerRachunku obciazany, Kwota kwota) {
         //sprawdz blokade BFG
+        if (!blokadyFacade.sprawdzBlokade(obciazany, kwota)) {
+            return Rezultat.Nie_Przeniesiono;
+        }
+
         //sprawdz limit
 
         //zmien limit
@@ -61,11 +65,11 @@ public class RachunekFacade {
     }
 
     public void zdejmijBlokade(NumerRachunku z, Kwota pln) {
-
+        blokadyFacade.zdejmijBlokade(z, pln);
     }
 
     public void zalozBlokade(NumerRachunku rachunek, Kwota pln) {
-
+        blokadyFacade.zalozBlokade(rachunek, pln);
     }
 }
 

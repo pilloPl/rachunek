@@ -39,4 +39,9 @@ class Kwota {
     public Kwota dodaj(Kwota kwota) {
         return Kwota.PLN(amount + kwota.amount);
     }
+
+    public boolean isZero() {
+        return this.amount == 0;
+    }
+
 }

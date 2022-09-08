@@ -30,7 +30,7 @@ class TestyRachunku {
 	@Test
 	void nieMożnaPrzelaćŚrodkówJeśliJestBlokadaNaRachunku() {
 		//given
-		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek();
+		NumerRachunku zasilany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(1000));
 		//and
 		NumerRachunku obciazany = rachunekFacade.otworzNowyRachunek(Kwota.PLN(1000));
 		//and
