@@ -45,6 +45,10 @@ class LimityFacade {
         }
         return limit.sprawdzLimit(kwota);
     }
+
+    public Map<NumerRachunku, Limit> pobierzLimityDlaRachunku(UUID nrRachunku) {
+        return limityRepository.pobierzLimity(nrRachunku);
+    }
 }
 
 @Repository

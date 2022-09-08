@@ -11,20 +11,20 @@ import java.util.UUID;
 @RestController
 class LimityController {
 
-    private final LimityRepository limityRepository;
+    private final LimityFacade limityFacade;
 
-    LimityController(LimityRepository limityRepository) {
-        this.limityRepository = limityRepository;
+    LimityController(LimityFacade limityFacade) {
+        this.limityFacade = limityFacade;
         NumerRachunku z = NumerRachunku.generuj();
         System.out.println(z);
         NumerRachunku na = NumerRachunku.generuj();
         Kwota pln = Kwota.PLN(100);
-        this.limityRepository.zapisz(new Limit(z, na, pln), z, na);
+        this.limityFacade.ustawLimit(z, na, pln);
     }
 
     @GetMapping(path = "/limity/{nr}")
     ResponseEntity<List<LimityDto>> pokazLimity(@PathVariable UUID nr) {
-        Map<NumerRachunku, Limit> limitMap = limityRepository.pobierzLimity(nr);
+        Map<NumerRachunku, Limit> limitMap = limityFacade.pobierzLimityDlaRachunku(nr);
         return ResponseEntity.ok(convert(nr, limitMap));
     }
 
