@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Service
@@ -67,6 +68,9 @@ class LimityRepository {
         return null;
     }
 
+    public Map<NumerRachunku, Limit> pobierzLimity(UUID nrRachunku) {
+        return limity.get(new NumerRachunku(nrRachunku));
+    }
 }
 
 class Limit {
@@ -99,5 +103,9 @@ class Limit {
 
     public boolean sprawdzLimit(Kwota kwota) {
         return !limit.jestMniejszeNiz(kwota);
+    }
+
+    public int zwrocLimit() {
+        return limit.getAmount();
     }
 }
