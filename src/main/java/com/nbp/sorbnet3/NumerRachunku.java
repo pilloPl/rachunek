@@ -10,10 +10,16 @@ public class NumerRachunku {
     }
 
     private final UUID nrb;
-    private Status status;
+    private final Status status;
 
     public NumerRachunku(UUID numer) {
         this.nrb = numer;
+        status = Status.Utworzony;
+    }
+
+    public NumerRachunku(UUID numer, Status status) {
+        this.nrb = numer;
+        this.status = status;
     }
 
     @Override
@@ -29,12 +35,13 @@ public class NumerRachunku {
         return Objects.hash(nrb);
     }
 
-    public void zamknij() {
-        this.status = Status.Zamkniety;
+    public NumerRachunku zamknij() {
+
+        return new NumerRachunku(nrb, Status.Zamkniety);
     }
 
-    public void otworz() {
-        this.status = Status.Otwarty;
+    public NumerRachunku otworz() {
+        return new NumerRachunku(nrb, Status.Otwarty);
     }
 
     public boolean jestZamkniety() {
@@ -51,5 +58,9 @@ public class NumerRachunku {
 
     public UUID getId() {
         return nrb;
+    }
+
+    public String getStatus() {
+        return status.toString();
     }
 }

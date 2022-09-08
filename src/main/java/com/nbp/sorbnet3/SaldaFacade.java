@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 class SaldaFacade {
@@ -37,6 +38,16 @@ class SaldaFacade {
 
     public boolean czyMaszKwote(NumerRachunku obciazany, Kwota blokady) {
         return saldaRepository.załaduj(obciazany).czyJestDostepnaKwota(blokady);
+    }
+
+    public Saldo get(NumerRachunku nr) {
+        return saldaRepository.załaduj(nr);
+    }
+
+    public NumerRachunku zamknij(NumerRachunku rachunek) {
+        Saldo saldo = saldaRepository.załaduj(rachunek);
+        saldo.zamknij();
+        return saldo.numerRachunku();
     }
 }
 
@@ -81,5 +92,17 @@ class Saldo {
 
     public boolean czyJestDostepnaKwota(Kwota blokady) {
         return !saldo.jestMniejszeNiz(blokady);
+    }
+
+    public Kwota stan() {
+        return saldo;
+    }
+
+    public NumerRachunku numerRachunku() {
+        return numerRachunku;
+    }
+
+    public void zamknij() {
+        this.numerRachunku = numerRachunku.zamknij();
     }
 }

@@ -17,15 +17,13 @@ public class RachunekFacade {
     }
 
     public NumerRachunku otworzNowyRachunek() {
-        //otworz saldo
-        //populuj widok
         return otworzNowyRachunek(Kwota.PLN(0));
     }
 
     public NumerRachunku otworzNowyRachunek(Kwota saldo) {
 
         NumerRachunku numerRachunku = NumerRachunku.generuj();
-        numerRachunku.otworz();
+        numerRachunku = numerRachunku.otworz();
         saldaFacade.otworzSaldoNaKwote(saldo, numerRachunku);
         //otworz saldo
         //populuj widok
@@ -47,8 +45,8 @@ public class RachunekFacade {
         return rezultat;
     }
 
-    public void zamknij(NumerRachunku rachunek) {
-        rachunek.zamknij();
+    public NumerRachunku zamknij(NumerRachunku rachunek) {
+        return saldaFacade.zamknij(rachunek);
     }
 
     public void ustawLimit(NumerRachunku z, NumerRachunku na, Kwota pln) {
@@ -76,6 +74,10 @@ public class RachunekFacade {
     public void zalozBlokade(NumerRachunku rachunek, Kwota pln) {
         blokadyFacade.zalozBlokade(rachunek, pln);
     }
+
+    public Saldo zaladuj(NumerRachunku nr) {
+        return saldaFacade.get(nr);
+    }
 }
 
 enum Rezultat {
@@ -83,5 +85,5 @@ enum Rezultat {
 }
 
 enum Status {
-    Otwarty, Zamkniety;
+    Otwarty, Zamkniety, Utworzony;
 }
